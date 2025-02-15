@@ -22,6 +22,15 @@ int Paddle::getCy() const {
   return y + (height / 2);
 }
 
+Rectangle Paddle::rect() const {
+  return Rectangle {
+    static_cast<float>(x),
+    static_cast<float>(y),
+    static_cast<float>(width),
+    static_cast<float>(height),
+  };
+}
+
 void Paddle::draw() const {
   DrawRectangle(x, y, width, height, WHITE);
 }

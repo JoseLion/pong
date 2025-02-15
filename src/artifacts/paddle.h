@@ -1,5 +1,7 @@
 #pragma once
 
+#include "raylib.h"
+
 enum class Side { LEFT, RIGHT };
 
 class Paddle {
@@ -17,6 +19,8 @@ class Paddle {
     virtual ~Paddle();
 
     int getCy() const;
+
+    Rectangle rect() const;
 
     void draw() const;
 
