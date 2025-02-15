@@ -28,7 +28,15 @@ int main() {
 
     ball.update();
     player1.update();
-    player2.update(ball.getCy());
+    player2.update(ball.center().y);
+
+    if (CheckCollisionCircleRec(ball.center(), Ball::RADIUS, player1.rect())) {
+      ball.move(Direction::RIGTH);
+    }
+
+    if (CheckCollisionCircleRec(ball.center(), Ball::RADIUS, player2.rect())) {
+      ball.move(Direction::LEFT);
+    }
 
     ClearBackground(BLACK);
     DrawLine(screen.cx, 0, screen.cx, screen.height, WHITE);

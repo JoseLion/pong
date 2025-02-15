@@ -6,25 +6,52 @@ Ball::Ball(const int& cx, const int& cy): cx(cx), cy(cy) {
 
 }
 
-int Ball::getCy() const {
-  return cy;
+Vector2 Ball::center() const {
+  return Vector2 {
+    static_cast<float>(cx),
+    static_cast<float>(cy),
+  };
 }
 
 void Ball::draw() const {
-  DrawCircle(cx, cy, static_cast<float>(r), WHITE);
+  DrawCircle(cx, cy, static_cast<float>(RADIUS), WHITE);
 }
 
 void Ball::update() {
+  using enum Direction;
   cx += vx;
   cy += vy;
 
-  if (cx + r >= GetScreenWidth() || cx - r <= 0) {
-    vx *= -1;
+  if (cx + RADIUS >= GetScreenWidth()) {
+    move(LEFT);
   }
 
-  if (cy + r >= GetScreenHeight() || cy - r <= 0) {
-    vy *= -1;
+  if (cx - RADIUS <= 0) {
+    move(RIGTH);
+  }
+
+  if (cy + RADIUS >= GetScreenHeight()) {
+    move(UP);
+  }
+
+  if (cy - RADIUS <= 0) {
+    move(DOWN);
   }
 }
 
-
+void Ball::move(const Direction& direction) {
+  switch (direction) {
+    using enum Direction;
+    case DOWN:
+      vy = SPEED;
+      break;
+    case LEFT:
+      vx = -SPEED;
+      break;
+    case RIGTH:
+      vx = SPEED;
+      break;
+    case UP:
+      vy = -SPEED;
+  }
+}
