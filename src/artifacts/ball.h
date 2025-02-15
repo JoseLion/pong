@@ -11,7 +11,7 @@ class Ball {
   public:
     Ball(const int& cx, const int& cy);
 
-    const void draw() const;
+    void draw() const;
 
-    const void update();
+    void update();
 };

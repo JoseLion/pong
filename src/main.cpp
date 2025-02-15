@@ -2,6 +2,7 @@
 #include "raylib.h"
 
 #include "artifacts/ball.h"
+#include "artifacts/paddle.h"
 
 struct Screen {
   const int width = 1280;
@@ -14,21 +15,25 @@ int main() {
   std::cout << "Starting game..." << std::endl;
 
   const auto screen = Screen();
-  auto ball = Ball(screen.cx, screen.cy);
-
   InitWindow(screen.width, screen.height, "Pong!");
   SetTargetFPS(120);
+
+  auto ball = Ball(screen.cx, screen.cy);
+  auto player1 = Paddle(Side::LEFT);
+  auto player2 = Paddle(Side::RIGHT);
 
   while (!WindowShouldClose()) {
     BeginDrawing();
 
     ball.update();
+    player1.update();
 
     ClearBackground(BLACK);
-    DrawLine(screen.cx, 0, screen.cx, screen.height, WHITE); 
+    DrawLine(screen.cx, 0, screen.cx, screen.height, WHITE);
+
     ball.draw();
-    DrawRectangle(10, (screen.cy) - (120 / 2), 25, 120, WHITE);
-    DrawRectangle(screen.width - 25 - 10, (screen.cy) - (120 / 2), 25, 120, WHITE);
+    player1.draw();
+    player2.draw();
 
     EndDrawing();
   }
