@@ -6,8 +6,8 @@
 struct Screen {
   const int width = 1280;
   const int height = 800;
-  const int cx = this->width / 2;
-  const int cy = this->height / 2;
+  const int cx = width / 2;
+  const int cy = height / 2;
 };
 
 int main() {

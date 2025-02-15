@@ -1,14 +1,12 @@
 #pragma once
 
-#include "raylib.h"
-
 class Ball {
-  static constexpr int SIZE = 20;
-  static constexpr Color FILL = WHITE;
+  const int r = 20;
 
-  int speed = 3;
   int cx;
   int cy;
+  int vx = 3;
+  int vy = 3;
 
   public:
     Ball(const int& cx, const int& cy);
