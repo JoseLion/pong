@@ -1,7 +1,5 @@
 #pragma once
 
-#include "raylib.h"
-
 enum class Side { LEFT, RIGHT };
 
 class Paddle {
@@ -11,12 +9,21 @@ class Paddle {
   const int speed = 2;
 
   int x;
-  int y = (GetScreenHeight() / 2) - (height / 2);
+  int y;
 
   public:
     explicit Paddle(const Side& side);
 
+    virtual ~Paddle();
+
+    int getCy() const;
+
     void draw() const;
 
-    void update();
+    virtual void update();
+
+  protected:
+    void moveUp();
+
+    void moveDown();
 };

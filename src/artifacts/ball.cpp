@@ -3,6 +3,11 @@
 #include "ball.h"
 
 Ball::Ball(const int& cx, const int& cy): cx(cx), cy(cy) {
+
+}
+
+int Ball::getCy() const {
+  return cy;
 }
 
 void Ball::draw() const {
@@ -21,3 +26,5 @@ void Ball::update() {
     vy *= -1;
   }
 }
+
+

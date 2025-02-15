@@ -4,6 +4,8 @@
 #include "raylib.h"
 
 Paddle::Paddle(const Side& side) {
+  y = (GetScreenHeight() / 2) - (height / 2);
+
   switch (side) {
     case Side::LEFT:
       x = offset;
@@ -14,16 +16,30 @@ Paddle::Paddle(const Side& side) {
   }
 }
 
+Paddle::~Paddle() = default;
+
+int Paddle::getCy() const {
+  return y + (height / 2);
+}
+
 void Paddle::draw() const {
   DrawRectangle(x, y, width, height, WHITE);
 }
 
 void Paddle::update() {
   if (IsKeyDown(KEY_UP)) {
-    y = std::max(y - speed, 0);
+    moveUp();
   }
 
   if (IsKeyDown(KEY_DOWN)) {
-    y = std::min(y + speed, GetScreenHeight() - height);
+    moveDown();
   }
+}
+
+void Paddle::moveUp() {
+  y = std::max(y - speed, 0);
+}
+
+void Paddle::moveDown() {
+  y = std::min(y + speed, GetScreenHeight() - height);
 }
