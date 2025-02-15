@@ -1,14 +1,15 @@
-#include "ball.h"
 #include "raylib.h"
+
+#include "ball.h"
 
 Ball::Ball(const int& cx, const int& cy): cx(cx), cy(cy) {
 }
 
-const void Ball::draw() const {
-  DrawCircle(cx, cy, r, WHITE);
+void Ball::draw() const {
+  DrawCircle(cx, cy, static_cast<float>(r), WHITE);
 }
 
-const void Ball::update() {
+void Ball::update() {
   cx += vx;
   cy += vy;
 
