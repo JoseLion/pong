@@ -2,6 +2,7 @@
 #include "raylib.h"
 
 #include "artifacts/ball.h"
+#include "artifacts/cpu_paddle.h"
 #include "artifacts/paddle.h"
 
 struct Screen {
@@ -20,13 +21,14 @@ int main() {
 
   auto ball = Ball(screen.cx, screen.cy);
   auto player1 = Paddle(Side::LEFT);
-  auto player2 = Paddle(Side::RIGHT);
+  auto player2 = CpuPaddle();
 
   while (!WindowShouldClose()) {
     BeginDrawing();
 
     ball.update();
     player1.update();
+    player2.update(ball.getCy());
 
     ClearBackground(BLACK);
     DrawLine(screen.cx, 0, screen.cx, screen.height, WHITE);
