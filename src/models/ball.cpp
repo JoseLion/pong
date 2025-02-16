@@ -1,8 +1,9 @@
+#include <functional>
+#include "ball.h"
+#include "player.h"
 #include "raylib.h"
 
-#include "ball.h"
-
-Ball::Ball(const int& cx, const int& cy): cx(cx), cy(cy) {
+Ball::Ball(const OnScore&& onScore): onScore(onScore) {
 
 }
 
@@ -23,11 +24,13 @@ void Ball::update() {
   cy += vy;
 
   if (cx + RADIUS >= GetScreenWidth()) {
-    move(LEFT);
+    onScore(Player::Type::ONE);
+    reset();
   }
 
   if (cx - RADIUS <= 0) {
-    move(RIGTH);
+    onScore(Player::Type::TWO);
+    reset();
   }
 
   if (cy + RADIUS >= GetScreenHeight()) {
@@ -54,4 +57,11 @@ void Ball::move(const Direction& direction) {
     case UP:
       vy = -SPEED;
   }
+}
+
+void Ball::reset() {
+  cx = GetScreenWidth() / 2;
+  cy = GetScreenHeight() / 2;
+  vx = GetRandomValue(0, 1) ? SPEED : -SPEED;
+  vy = GetRandomValue(0, 1) ? SPEED : -SPEED;
 }
