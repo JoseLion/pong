@@ -1,4 +1,4 @@
-#include "models/player.h"
+#include "player.h"
 
 #include <algorithm>
 
