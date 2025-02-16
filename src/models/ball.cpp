@@ -1,7 +1,11 @@
+#include "models/ball.h"
+
 #include <functional>
-#include "ball.h"
-#include "player.h"
+
 #include "raylib.h"
+
+#include "models/player.h"
+#include "helpers/theme.h"
 
 Ball::Ball(const OnScore&& onScore): onScore(onScore) {
 
@@ -15,7 +19,7 @@ Vector2 Ball::center() const {
 }
 
 void Ball::draw() const {
-  DrawCircle(cx, cy, static_cast<float>(RADIUS), WHITE);
+  DrawCircle(cx, cy, static_cast<float>(RADIUS), Theme::YELLOW_500);
 }
 
 void Ball::update() {
