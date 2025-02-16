@@ -4,7 +4,7 @@
 
 #include "raylib.h"
 
-#include "models/player.h"
+#include "player.h"
 
 enum class Direction {
   DOWN,

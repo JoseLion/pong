@@ -1,10 +1,10 @@
-#include "models/ball.h"
+#include "ball.h"
 
 #include <functional>
 
 #include "raylib.h"
 
-#include "models/player.h"
+#include "player.h"
 #include "helpers/theme.h"
 
 Ball::Ball(const OnScore&& onScore): onScore(onScore) {
