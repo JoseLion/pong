@@ -16,4 +16,6 @@ FetchContent_MakeAvailable(raylib)
 file(GLOB_RECURSE sourceSet CONFIGURE_DEPENDS src/*.cpp src/*.h)
 
 add_executable(${PROJECT_NAME} ${sourceSet})
+
+target_include_directories(${PROJECT_NAME} PUBLIC ./src)
 target_link_libraries(${PROJECT_NAME} raylib)

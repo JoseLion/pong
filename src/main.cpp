@@ -1,7 +1,10 @@
 #include <iostream>
+
+#include "raylib.h"
+
+#include "helpers/theme.h"
 #include "models/ball.h"
 #include "models/player.h"
-#include "raylib.h"
 
 struct Screen {
   const int width = 1280;
@@ -45,7 +48,9 @@ int main() {
       ball.move(Direction::LEFT);
     }
 
-    ClearBackground(BLACK);
+    ClearBackground(Theme::GREEN_900);
+    DrawRectangle(screen.cx, 0, screen.cx, screen.height, Theme::GREEN_500);
+    DrawCircle(screen.cx, screen.cy, 150, Theme::GREEN_100);
     DrawLine(screen.cx, 0, screen.cx, screen.height, WHITE);
 
     ball.draw();

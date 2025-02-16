@@ -1,8 +1,10 @@
 #pragma once
 
 #include <functional>
-#include "player.h"
+
 #include "raylib.h"
+
+#include "models/player.h"
 
 enum class Direction {
   DOWN,

@@ -1,7 +1,8 @@
-#include "raylib.h"
+#include "models/player.h"
+
 #include <algorithm>
 
-#include "player.h"
+#include "raylib.h"
 
 Player::Player(const Type&& type) {
   this->y = (GetScreenHeight() / 2) - (HEIGHT / 2);
@@ -27,7 +28,7 @@ Rectangle Player::paddle() const {
 }
 
 void Player::draw() const {
-  DrawRectangle(x, y, WIDTH, HEIGHT, WHITE);
+  DrawRectangleRounded(paddle(), 0.8f, 0, WHITE);
 }
 
 void Player::update() {
