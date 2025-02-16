@@ -16,16 +16,16 @@ enum class Direction {
 class Ball {
   using OnScore = std::function<void(const Player::Type&)>;
 
-  static const int SPEED = 3;
+  static constexpr float SPEED = Player::SPEED * 1.35f;
  
   const OnScore onScore;
-  int cx = GetScreenWidth() / 2;
-  int cy = GetScreenHeight() / 2;
-  int vx = SPEED;
-  int vy = SPEED;
+  float cx = static_cast<float>(GetScreenWidth()) / 2.0f;
+  float cy = static_cast<float>(GetScreenHeight()) / 2.0f;
+  float vx = SPEED;
+  float vy = SPEED;
 
   public:
-    static const int RADIUS = 20;
+    static constexpr float RADIUS = 20.0f;
 
     explicit Ball(const OnScore&& onScore);
 

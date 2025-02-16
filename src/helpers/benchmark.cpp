@@ -2,16 +2,9 @@
 
 #include "raylib.h"
 
-void Benchmark::startFrame() {
-  startTime = GetTime();
-}
-
-void Benchmark::endFrame() {
-  const auto endTime = GetTime();
-
+void Benchmark::persist() {
+  totalTime += GetFrameTime();
   totalFrames++;
-  totalTime += endTime - startTime;
-  startTime = 0.0;
 }
 
 int Benchmark::averageFps() const {

@@ -3,17 +3,18 @@
 #include "raylib.h"
 
 class Player {
-  static const int OFFSET = 10;
-  static const int WIDTH = 25;
-  static const int HEIGHT = 120;
-  static const int SPEED = 2;
+  static constexpr float OFFSET = 10.0f;
+  static constexpr float WIDTH = 25.0f;
+  static constexpr float HEIGHT = 120.0f;
 
   int score = 0;
-  int x;
-  int y;
+  float x;
+  float y;
 
   public:
     enum class Type { ONE, TWO };
+
+    static constexpr float SPEED = 360.0f;
 
     explicit Player(const Type&& type);
 
