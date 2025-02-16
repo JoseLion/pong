@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+#include "player.h"
 #include "raylib.h"
 
 enum class Direction {
@@ -10,17 +12,20 @@ enum class Direction {
 };
 
 class Ball {
+  using OnScore = std::function<void(const Player::Type&)>;
+
   static const int SPEED = 3;
  
-  int cx;
-  int cy;
+  const OnScore onScore;
+  int cx = GetScreenWidth() / 2;
+  int cy = GetScreenHeight() / 2;
   int vx = SPEED;
   int vy = SPEED;
 
   public:
     static const int RADIUS = 20;
 
-    Ball(const int& cx, const int& cy);
+    explicit Ball(const OnScore&& onScore);
 
     Vector2 center() const;
 
@@ -29,4 +34,7 @@ class Ball {
     void update();
 
     void move(const Direction& direction);
+
+  private:
+    void reset();
 };

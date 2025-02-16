@@ -1,9 +1,7 @@
 #include <iostream>
+#include "models/ball.h"
+#include "models/player.h"
 #include "raylib.h"
-
-#include "artifacts/ball.h"
-#include "artifacts/cpu_paddle.h"
-#include "artifacts/paddle.h"
 
 struct Screen {
   const int width = 1280;
@@ -19,22 +17,31 @@ int main() {
   InitWindow(screen.width, screen.height, "Pong!");
   SetTargetFPS(120);
 
-  auto ball = Ball(screen.cx, screen.cy);
-  auto player1 = Paddle(Side::LEFT);
-  auto player2 = CpuPaddle();
+  auto player1 = Player(Player::Type::ONE);
+  auto player2 = Player(Player::Type::TWO);
+  auto ball = Ball([&player1, &player2](const Player::Type& player) {
+    switch (player) {
+      case Player::Type::ONE:
+        player1.winPoint();
+        break;
+      case Player::Type::TWO:
+        player2.winPoint();
+        break;
+    }
+  });
 
   while (!WindowShouldClose()) {
     BeginDrawing();
 
     ball.update();
     player1.update();
-    player2.update(ball.center().y);
+    player2.cpuUpdate(ball.center().y);
 
-    if (CheckCollisionCircleRec(ball.center(), Ball::RADIUS, player1.rect())) {
+    if (CheckCollisionCircleRec(ball.center(), Ball::RADIUS, player1.paddle())) {
       ball.move(Direction::RIGTH);
     }
 
-    if (CheckCollisionCircleRec(ball.center(), Ball::RADIUS, player2.rect())) {
+    if (CheckCollisionCircleRec(ball.center(), Ball::RADIUS, player2.paddle())) {
       ball.move(Direction::LEFT);
     }
 
@@ -44,6 +51,9 @@ int main() {
     ball.draw();
     player1.draw();
     player2.draw();
+
+    DrawText(TextFormat("%i", player1.getScore()), (screen.cx / 2) - 20, 20, 80, WHITE);
+    DrawText(TextFormat("%i", player2.getScore()), (3 * screen.cx / 2) - 20, 20, 80, WHITE);
 
     EndDrawing();
   }
