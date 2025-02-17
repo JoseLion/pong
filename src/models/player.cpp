@@ -5,11 +5,11 @@
 #include "raylib.h"
 
 Player::Player(const Type&& type) {
-  this->y = (GetScreenHeight() / 2) - (HEIGHT / 2);
+  this->y = (static_cast<float>(GetScreenHeight()) / 2.0f) - (HEIGHT / 2.0f);
   this->x = ([&type]() {
     switch (type) {
       case Type::ONE: return OFFSET;
-      case Type::TWO: return GetScreenWidth() - WIDTH - OFFSET;
+      case Type::TWO: return static_cast<float>(GetScreenWidth()) - WIDTH - OFFSET;
     }
   })();
 }
@@ -19,12 +19,7 @@ int Player::getScore() const {
 }
 
 Rectangle Player::paddle() const {
-  return Rectangle {
-    static_cast<float>(x),
-    static_cast<float>(y),
-    static_cast<float>(WIDTH),
-    static_cast<float>(HEIGHT),
-  };
+  return Rectangle { x, y, WIDTH, HEIGHT };
 }
 
 void Player::draw() const {
@@ -42,7 +37,7 @@ void Player::update() {
 }
 
 void Player::cpuUpdate(const float& ballCy) {
-  const auto&& cy = (float)y + (HEIGHT / 2.0f);
+  const auto&& cy = y + (HEIGHT / 2.0f);
 
   ballCy > cy
     ? moveDown()
@@ -54,9 +49,9 @@ void Player::winPoint() {
 }
 
 void Player::moveUp() {
-  y = std::max(y - SPEED, 0);
+  y = std::max(y - (SPEED * GetFrameTime()), 0.0f);
 }
 
 void Player::moveDown() {
-  y = std::min(y + SPEED, GetScreenHeight() - HEIGHT);
+  y = std::min(y + (SPEED * GetFrameTime()), (float)GetScreenHeight() - HEIGHT);
 }

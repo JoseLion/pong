@@ -12,22 +12,20 @@ Ball::Ball(const OnScore&& onScore): onScore(onScore) {
 }
 
 Vector2 Ball::center() const {
-  return Vector2 {
-    static_cast<float>(cx),
-    static_cast<float>(cy),
-  };
+  return Vector2 { cx, cy };
 }
 
 void Ball::draw() const {
-  DrawCircle(cx, cy, static_cast<float>(RADIUS), Theme::YELLOW_500);
+  DrawCircleV(Vector2 { cx, cy }, RADIUS, Theme::YELLOW_500);
 }
 
 void Ball::update() {
-  using enum Direction;
-  cx += vx;
-  cy += vy;
+  const auto frameTime = GetFrameTime();
 
-  if (cx + RADIUS >= GetScreenWidth()) {
+  cx += vx * frameTime;
+  cy += vy * frameTime;
+
+  if (cx + RADIUS >= static_cast<float>(GetScreenWidth())) {
     onScore(Player::Type::ONE);
     reset();
   }
@@ -37,12 +35,12 @@ void Ball::update() {
     reset();
   }
 
-  if (cy + RADIUS >= GetScreenHeight()) {
-    move(UP);
+  if (cy + RADIUS >= static_cast<float>(GetScreenHeight())) {
+    move(Direction::UP);
   }
 
   if (cy - RADIUS <= 0) {
-    move(DOWN);
+    move(Direction::DOWN);
   }
 }
 
@@ -64,8 +62,8 @@ void Ball::move(const Direction& direction) {
 }
 
 void Ball::reset() {
-  cx = GetScreenWidth() / 2;
-  cy = GetScreenHeight() / 2;
+  cx = static_cast<float>(GetScreenWidth()) / 2;
+  cy = static_cast<float>(GetScreenHeight()) / 2;
   vx = GetRandomValue(0, 1) ? SPEED : -SPEED;
   vy = GetRandomValue(0, 1) ? SPEED : -SPEED;
 }

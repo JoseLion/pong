@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "raylib.h"
 
 #include "helpers/benchmark.h"
@@ -15,7 +13,7 @@ struct Screen {
 };
 
 int main() {
-  std::cout << "Starting game..." << std::endl;
+  TraceLog(LOG_INFO, "Starting game...");
 
   const auto screen = Screen();
   InitWindow(screen.width, screen.height, "Pong!");
@@ -36,7 +34,6 @@ int main() {
   });
 
   while (!WindowShouldClose()) {
-    benchmark.startFrame();
     BeginDrawing();
 
     ball.update();
@@ -64,7 +61,7 @@ int main() {
     DrawText(TextFormat("%i", player2.getScore()), (3 * screen.cx / 2) - 20, 20, 80, WHITE);
 
     EndDrawing();
-    benchmark.endFrame();
+    benchmark.persist();
   }
 
   TraceLog(LOG_INFO, "Average FPS: %i", benchmark.averageFps());
