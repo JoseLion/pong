@@ -23,7 +23,7 @@ Rectangle Player::paddle() const {
 }
 
 void Player::draw() const {
-  DrawRectangleRounded(paddle(), 0.8f, 0, WHITE);
+  DrawRectangleRounded(paddle(), 0.8f, 8, WHITE);
 }
 
 void Player::update() {
