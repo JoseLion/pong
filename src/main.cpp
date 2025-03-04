@@ -1,6 +1,5 @@
 #include "raylib.h"
 
-#include "helpers/benchmark.h"
 #include "helpers/theme.h"
 #include "models/ball.h"
 #include "models/player.h"
@@ -19,7 +18,6 @@ int main() {
   InitWindow(screen.width, screen.height, "Pong!");
   SetTargetFPS(120);
 
-  auto benchmark = Benchmark();
   auto player1 = Player(Player::Type::ONE);
   auto player2 = Player(Player::Type::TWO);
   auto ball = Ball([&player1, &player2](const Player::Type& player) {
@@ -59,12 +57,10 @@ int main() {
 
     DrawText(TextFormat("%i", player1.getScore()), (screen.cx / 2) - 20, 20, 80, WHITE);
     DrawText(TextFormat("%i", player2.getScore()), (3 * screen.cx / 2) - 20, 20, 80, WHITE);
+    DrawFPS(10, 10);
 
     EndDrawing();
-    benchmark.persist();
   }
-
-  TraceLog(LOG_INFO, "Average FPS: %i", benchmark.averageFps());
 
   CloseWindow();
   return 0;
