@@ -15,11 +15,11 @@ Player::Player(const Type&& type) {
 }
 
 int Player::getScore() const {
-  return score;
+  return this->score;
 }
 
 Rectangle Player::paddle() const {
-  return Rectangle { x, y, WIDTH, HEIGHT };
+  return Rectangle { this->x, this->y, WIDTH, HEIGHT };
 }
 
 void Player::draw() const {
@@ -28,30 +28,30 @@ void Player::draw() const {
 
 void Player::update() {
   if (IsKeyDown(KEY_UP)) {
-    moveUp();
+    this->moveUp();
   }
 
   if (IsKeyDown(KEY_DOWN)) {
-    moveDown();
+    this->moveDown();
   }
 }
 
 void Player::cpuUpdate(const float& ballCy) {
-  const auto&& cy = y + (HEIGHT / 2.0f);
+  const auto cy = this->y + (HEIGHT / 2.0f);
 
   ballCy > cy
-    ? moveDown()
-    : moveUp();
+    ? this->moveDown()
+    : this->moveUp();
 }
 
 void Player::winPoint() {
-  score++;
+  this->score++;
 }
 
 void Player::moveUp() {
-  y = std::max(y - (SPEED * GetFrameTime()), 0.0f);
+  this->y = std::max(this->y - (SPEED * GetFrameTime()), 0.0f);
 }
 
 void Player::moveDown() {
-  y = std::min(y + (SPEED * GetFrameTime()), (float)GetScreenHeight() - HEIGHT);
+  this->y = std::min(this->y + (SPEED * GetFrameTime()), (float)GetScreenHeight() - HEIGHT);
 }
